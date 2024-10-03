@@ -1,0 +1,72 @@
+list_motor = []
+
+def tambah_motor(jenis,merk):
+    motor = {
+        'jenis' : jenis,
+        'merk'  : merk
+    }
+    list_motor.append(motor)
+    print(f"motor jenis '{jenis}' merk '{merk}' berhasil ditambahkan!')
+    
+class directorymotor:
+    def tampilkan_motor(self):
+        if not list_motor:
+            print("Tidak ada jenis motor yang disebutkan.")
+            return
+        print("\nDaftar jenis motor:")
+        for motor in list_motor:
+            print(f"Jenis: {motor['jenis']}, Merk: {motor['merk']}")
+    
+    def hapus_motor(self, jenis):
+        global list_motor
+        list_motor = [motor for motor in list_motor if motor ['jenis'] != jenis]
+        print(f"motor jenis '{jenis}' berhasil dihapus.")
+    
+    def cari_motor(jenis):
+        for motor in list_motor:
+            if motor['jenis'] == jenis:
+                return motor 
+        return None
+        
+
+def menu():
+    while True:
+        print("\n--- Menu Manajemen Motor ---")
+        print("1. Tambah Motor")
+        print("2. Tampilkan Motor")
+        print("3. Cari Motor")
+        print("4. Hapus Motor")
+        print("5. Keluar")
+        pilihan = input("Pilih menu (1-5): ")
+
+        if pilihan == '1':
+            jenis = input("Masukkan jenis motor: ")
+            merk = input("Masukkan merk motor: ")
+            tambah_motor(jenis, merk)
+
+        elif pilihan == '2':
+            manager = MotorManager()
+            manager.tampilkan_motor()
+
+        elif pilihan == '3':
+            jenis = input("Masukkan jenis motor yang dicari: ")
+            hasil = cari_motor(jenis)
+            if hasil:
+                print(f"Motor ditemukan: Jenis: {hasil['jenis']}, Merk: {hasil['merk']}")
+            else:
+                print("Motor tidak ditemukan.")
+
+        elif pilihan == '4':
+            jenis = input("Masukkan jenis motor yang ingin dihapus: ")
+            manager = MotorManager()
+            manager.hapus_motor(jenis)
+
+        elif pilihan == '5':
+            print("Terima kasih! Program selesai.")
+            break
+
+        else:
+            print("Pilihan tidak valid. Silakan coba lagi.")
+
+if __name__ == "__main__":
+    menu()
